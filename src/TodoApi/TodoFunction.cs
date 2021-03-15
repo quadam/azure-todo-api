@@ -15,11 +15,13 @@ namespace TodoApi
     {
         private readonly IMyService _myService;
         private readonly IGetTodosRequestProcessor _getTodosRequestProcessor;
+        private readonly IPostTodoRequestProcessor _postTodoRequestProcessor;
 
-        public TodoFunction(IMyService myService, IGetTodosRequestProcessor getTodosRequestProcessor)
+        public TodoFunction(IMyService myService, IGetTodosRequestProcessor getTodosRequestProcessor, IPostTodoRequestProcessor postTodoRequestProcessor)
         {
             _myService = myService;
             _getTodosRequestProcessor = getTodosRequestProcessor;
+            _postTodoRequestProcessor = postTodoRequestProcessor;
         }
 
         [FunctionName("Todo")]
@@ -34,6 +36,12 @@ namespace TodoApi
                 var model = await _getTodosRequestProcessor.ProcessGetRequest(req);
 
                 return new OkObjectResult(model);
+            }
+            else if (string.Equals(req.Method, "post", StringComparison.OrdinalIgnoreCase))
+            {
+                await _postTodoRequestProcessor.ProcessTodoRequest(req);
+
+                return new OkResult();
             }
 
             string name = req.Query["name"];

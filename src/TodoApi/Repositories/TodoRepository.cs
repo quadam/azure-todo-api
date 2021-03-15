@@ -32,9 +32,11 @@ namespace TodoApi.Repositories
             return Task.FromResult((long)entities.Count);
         }
 
-        public Task CreateTodoItem(TodoEntity todoEntity)
+        public async Task CreateTodoItem(TodoEntity todoEntity)
         {
-            return Task.CompletedTask;
+            var operation = TableOperation.Insert(todoEntity);
+
+            await _todoTable.ExecuteAsync(operation);
         }
 
         public async Task<List<TodoEntity>> ListTodoItems(long start, long count)

@@ -19,6 +19,7 @@ namespace TodoApi
             });
 
             builder.Services.AddScoped<IGetTodosRequestProcessor, GetTodosRequestProcessor>();
+            builder.Services.AddScoped<IPostTodoRequestProcessor, PostTodoRequestProcessor>();
 
             string connectionString = Environment.GetEnvironmentVariable("TodoApi_AzureTableStorage_ConnectionString");
 
