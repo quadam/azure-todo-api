@@ -13,7 +13,8 @@ namespace TodoApi.AutoMapping
         {
             CreateMap<TodoEntity, TodoModel>()
                 .ForMember(model => model.Group, opts => opts.MapFrom(entity => entity.PartitionKey))
-                .ForMember(model => model.Id, opts => opts.MapFrom(entity => entity.RowKey));
+                .ForMember(model => model.Id, opts => opts.MapFrom(entity => entity.RowKey))
+                .ReverseMap();
         }
     }
 }
