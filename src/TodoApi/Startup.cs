@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TodoApi.Repositories;
 using TodoApi.RequestProcessors;
 
 [assembly: FunctionsStartup(typeof(TodoApi.Startup))]
@@ -18,6 +19,7 @@ namespace TodoApi
             });
 
             builder.Services.AddScoped<IGetTodosRequestProcessor, GetTodosRequestProcessor>();
+            builder.Services.AddScoped<ITodoRepository, TodoRepository>();
         }
     }
 }

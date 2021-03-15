@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TodoApi.Models
+namespace TodoApi.Entities
 {
-    public class TodoModel
+    public class TodoEntity : TableEntity
     {
-        public string Id { get; set; }
         public string Content { get; set; }
-        public string Group { get; set; }
         public bool Completed { get; set; }
     }
 }
