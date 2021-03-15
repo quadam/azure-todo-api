@@ -22,7 +22,7 @@ namespace TodoApi.RequestProcessors
         {
             var count = await _todoRepository.CountTodoItems();
             var pageSize = 20;
-            var totalPages = count / pageSize + 1;
+            var totalPages = count / pageSize + ((count % pageSize > 0) ? 1 : 0);
             var page = Convert.ToInt64(httpRequest.Query["page"]);
 
             var todoEntitiesList = await _todoRepository.ListTodoItems(page * pageSize, pageSize);
