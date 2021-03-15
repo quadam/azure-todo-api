@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TodoApi.Models;
 using TodoApi.Repositories;
-using System.Linq;
 using AutoMapper;
 
 namespace TodoApi.RequestProcessors
