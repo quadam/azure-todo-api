@@ -24,6 +24,7 @@ namespace TodoApi
                 return new TodoRepository(connectionString);
             });
 
+            builder.Services.AddAutoMapper(typeof(Startup));
         }
     }
 }

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using TodoApi.Models;
 using TodoApi.Repositories;
 using System.Linq;
+using AutoMapper;
 
 namespace TodoApi.RequestProcessors
 {
     public class GetTodosRequestProcessor : IGetTodosRequestProcessor
     {
         private readonly ITodoRepository _todoRepository;
+        private readonly IMapper _mapper;
 
-        public GetTodosRequestProcessor(ITodoRepository todoRepository)
+        public GetTodosRequestProcessor(ITodoRepository todoRepository, IMapper mapper)
         {
             _todoRepository = todoRepository;
+            _mapper = mapper;
         }
 
         public async Task<PagedDataResponse<TodoModel>> ProcessGetRequest(HttpRequest httpRequest)
@@ -27,20 +30,7 @@ namespace TodoApi.RequestProcessors
 
             var todoEntitiesList = await _todoRepository.ListTodoItems(page * pageSize, pageSize);
 
-            var todoModelsList = new List<TodoModel>();
-
-            foreach (var entity in todoEntitiesList)
-            {
-                var todoModel = new TodoModel
-                {
-                    Completed = entity.Completed,
-                    Content = entity.Content,
-                    Group = entity.PartitionKey,
-                    Id = entity.RowKey
-                };
-
-                todoModelsList.Add(todoModel);
-            }
+            var todoModelsList = _mapper.Map<List<TodoModel>>(todoEntitiesList);
 
             return new PagedDataResponse<TodoModel>()
             {
