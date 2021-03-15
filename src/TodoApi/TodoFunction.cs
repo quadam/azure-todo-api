@@ -31,7 +31,7 @@ namespace TodoApi
 
             if (string.Equals(req.Method, "get", StringComparison.OrdinalIgnoreCase))
             {
-                var model = _getTodosRequestProcessor.ProcessGetRequest(req);
+                var model = await _getTodosRequestProcessor.ProcessGetRequest(req);
 
                 return new OkObjectResult(model);
             }

@@ -19,7 +19,14 @@ namespace TodoApi
             });
 
             builder.Services.AddScoped<IGetTodosRequestProcessor, GetTodosRequestProcessor>();
-            builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+
+            string connectionString = Environment.GetEnvironmentVariable("TodoApi_AzureTableStorage_ConnectionString");
+
+            builder.Services.AddScoped<ITodoRepository, TodoRepository>((s) =>
+            {
+                return new TodoRepository(connectionString);
+            });
+
         }
     }
 }
