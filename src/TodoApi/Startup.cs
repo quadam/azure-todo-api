@@ -14,10 +14,6 @@ namespace TodoApi
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            builder.Services.AddSingleton<IMyService>((s) => {
-                return new MyService();
-            });
-
             builder.Services.AddScoped<IGetTodosRequestProcessor, GetTodosRequestProcessor>();
             builder.Services.AddScoped<IPostTodoRequestProcessor, PostTodoRequestProcessor>();
 
