@@ -24,7 +24,12 @@ namespace TodoApi.Repositories
 
         public Task<long> CountTodoItems()
         {
-            return Task.FromResult((long)1);
+            // TODO Execute count in query.
+            // TODO Make method async.
+            TableQuery<TodoEntity> query = new TableQuery<TodoEntity>()
+                .Select(new List<string> { "PartitionKey", "RowKey", "Timestamp" });
+            var entities = _todoTable.ExecuteQuery(query).ToList();
+            return Task.FromResult((long)entities.Count);
         }
 
         public Task CreateTodoItem(TodoEntity todoEntity)
